@@ -1,3 +1,7 @@
+"""
+Module minimaliste permettant la lecture d'un XLS
+dans un dataframe à l'aide de la librairie pandas.
+"""
 import pandas as pd
 
 class XlsReader:

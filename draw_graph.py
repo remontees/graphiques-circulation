@@ -1,9 +1,9 @@
+"""
+Module contenant le nécessaire pour tracer un graphique de circulation.
+"""
 import numpy as np
-import functools
-import operator
 import pandas as pd
 from matplotlib import pyplot as plt
-from matplotlib import transforms as mtransforms
 
 from utilities import time_to_num
 
@@ -60,8 +60,6 @@ class DrawGraph:
         _, pk_col = next(iter_df)
 
         for label, x_col in iter_df:
-            xmean = pd.to_datetime(x_col, errors='coerce', format='%H:%M:%S').mean()
-
             # Construction of a unit dataframe for each circulation
             data_train = {
                 'Heure': x_col,
@@ -79,33 +77,37 @@ class DrawGraph:
                 label=label,
                 ax=self.ax,
                 color=train_color)
-            
-            xmean = time_to_num(xmean)
-            ymean = df_train['y'].mean()
 
-            if len(df_train['Heure'].index) > 1 and len(df_train['y'].index) > 1:
-                x1 = df_train['Heure'].iloc[1]
-                x2 = df_train['Heure'].iloc[2]
-                y1 = df_train['y'].iloc[1]
-                y2 = df_train['y'].iloc[2]
+            self.add_train_label(label, df_train, train_color)
 
-                text = self.ax.annotate(label, xy=(x1, y1), xytext=(0, 0),
-                                textcoords='offset points',
-                                size=8,
-                                horizontalalignment='center',
-                                verticalalignment='bottom',
-                                color=train_color)
+    def add_train_label(self, text_label, df_train, label_color):
+        """
+        Draws the name of the circulation along the line representing the circulation (+/-).
+        """
+        if len(df_train['Heure'].index) > 1 and len(df_train['y'].index) > 1:
+            x1 = df_train['Heure'].iloc[1]
+            x2 = df_train['Heure'].iloc[2]
+            y1 = df_train['y'].iloc[1]
+            y2 = df_train['y'].iloc[2]
 
-                x1 = time_to_num(x1)
-                x2 = time_to_num(x2)
-                sp1 = self.ax.transData.transform_point((x1, y1))
-                sp2 = self.ax.transData.transform_point((x2, y2))
+            text = self.ax.annotate(text_label, xy=(x1, y1), xytext=(0, 0),
+                            textcoords='offset points',
+                            size=8,
+                            horizontalalignment='center',
+                            verticalalignment='bottom',
+                            color=label_color)
 
-                rise = (sp2[1] - sp1[1])
-                run = (sp2[0] - sp1[0])
+            x1 = time_to_num(x1)
+            x2 = time_to_num(x2)
+            sp1 = self.ax.transData.transform_point((x1, y1))
+            sp2 = self.ax.transData.transform_point((x2, y2))
 
-                slope_degrees = np.degrees(np.arctan2(rise, run))
-                text.set_rotation(slope_degrees)
+            rise = (sp2[1] - sp1[1])
+            run = (sp2[0] - sp1[0])
+
+            slope_degrees = np.degrees(np.arctan2(rise, run))
+            text.set_rotation(slope_degrees)
+
 
     def draw_stations(self):
         """
@@ -119,24 +121,3 @@ class DrawGraph:
         Affiche le graphique à l'écran à l'écran.
         """
         plt.show()
-    
-
-
-# def on_draw(event):
-#     bboxes = []
-#     for label in labels:
-#         bbox = label.get_window_extent()
-#         bboxi = bbox.inverse_transformed(fig.transFigure)
-#         bboxes.append(bboxi)
-
-#     bbox = mtransforms.Bbox.union(bboxes)
-
-
-#     if fig.subplotpars.left < bbox.width:
-#         fig.subplots_adjust(left=1.1*bbox.width)
-#         fig.canvas.draw()
-    
-#     return False
-
-# fig.canvas.mpl_connect('draw_event', on_draw)
-

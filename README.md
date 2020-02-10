@@ -12,3 +12,7 @@ Des modèles de ces deux classeurs requis sont présentés dans le répertoire `
 
 Veillez avant toute chose à installer les dépendances de l'application en exécutant la commande `pip3 install -r requirements.txt` depuis la racine du projet.
 
+## Utilisation
+
+
+

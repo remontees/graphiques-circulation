@@ -117,3 +117,6 @@ dmypy.json
 
 # Kate temp files
 *.kate-swp
+
+# Temp calc files
+*.~lock*

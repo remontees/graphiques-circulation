@@ -18,3 +18,7 @@ Veillez avant toute chose à installer les dépendances de l'application en exé
 
 Exemple de commande pour générer les graphiques associés aux classeurs *Excel* de tests :
 ```./run_traceur_cli.py models/gares-model.xls models/sillons-model.xls```
+
+Vous obtiendrez ainsi ce genre de graphiques :
+
+![Graphique fictif obtenu avec les données de modèle.](models/graphe_model.png "Graphique fictif obtenu avec les données du modèle.")

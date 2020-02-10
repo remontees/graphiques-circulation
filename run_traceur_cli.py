@@ -2,22 +2,13 @@
 #coding: utf8
 """
 Module principal permettant l'utilisation du traceur de graphique en CLI.
-
-Dépendances externes : argparse, os, sys
-
 """
 import argparse
-import os
 import sys
+from xls_reader import XlsReader
+from draw_graph import DrawGraph
 
-
-def check_xls_type(argument):
-    """
-    Vérifie si l'argument fourni a bien pour extension XLS ou xls.
-    """
-    type_xls = ["xls", "XLS"]
-
-    return argument.split('.')[-1] in type_xls
+from utilities import check_xls_type
 
 
 def main_cli():
@@ -35,11 +26,22 @@ def main_cli():
     args = parser.parse_args()
 
     # Vérifications des paramètres
-    if not check_xls_type(args.gares) or not check_xls_type(args.sillons):
+    if not check_xls_type(args.gares[0]) or not check_xls_type(args.sillons[0]):
         sys.stderr.write("Les fichiers de données ne sont pas au format XLS.\n")
         sys.exit(1)
+    
+    # Lecture des fichiers XLS
+    gares_reader = XlsReader(args.gares[0])
+    df_gares = gares_reader.give_df_representation(None)
 
-    print("test")
+    sillons_reader = XlsReader(args.sillons[0])
+    df_sillons = sillons_reader.give_df_representation(0)
+
+    graph = DrawGraph(df_gares, df_sillons)
+    graph.draw_sillons()
+    graph.draw_stations()
+    graph.finalize_graph()
+    graph.show()
 
 
 # Si l'on exécute le fichier, on lance la fonction main_gui

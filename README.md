@@ -21,4 +21,4 @@ Exemple de commande pour générer les graphiques associés aux classeurs *Excel
 
 Vous obtiendrez ainsi ce genre de graphiques :
 
-![Graphique fictif obtenu avec les données de modèle.](models/graphe_model.png "Graphique fictif obtenu avec les données du modèle.")
+![Graphique fictif obtenu avec les données de modèle.](https://raw.githubusercontent.com/remontees/graphiques-circulation/master/models/graphe_modele.png "Graphique fictif obtenu avec les données du modèle.")

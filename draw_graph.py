@@ -89,56 +89,9 @@ class DrawGraph:
         """
         Draws the name of the circulation along the line representing the circulation (+/-).
         """
-        def y_distance(points):
-            """
-            Retourne |dy| = |y2-y1| d'un couple de deux points.
-            """
-            (_, y1), (_, y2) = points
-
-            return abs(y2-y1)
-
         if len(df_train['Heure'].index) > 1 and len(df_train['y'].index) > 1:
-            iter_points = zip(df_train['Heure'].values, df_train['y'].values)
-            # list_points = list(map(map_points, iter_points))
-            list_points = list(iter_points)
-            # list_segments = list(zip(list_points[1:], list_points[:-1]))
-            # iter_euclidian_distances = map(y_distance, list_segments)
-            # plus_long_segment = max(
-            #     zip(iter_euclidian_distances, list_segments))
-            # print(plus_long_segment)
-            # # x1 = df_train['Heure'].iloc[1]
-            # # x2 = df_train['Heure'].iloc[2]
-            # # y1 = df_train['y'].iloc[1]
-            # # y2 = df_train['y'].iloc[2]
-
-            # (x1, y1), (x2, y2) = plus_long_segment[1]
-            # x1, x2 = time_to_timedelta(x1), time_to_timedelta(x2)
-
-            # x_mean = (x1+x2)/2+timedelta(seconds=60)
-            # y_mean = (y1+y2)/2
-            # xylabel = (timedelta_to_time(x_mean), y_mean)
-
-            # sp1 = self.ax.transData.transform_point(
-            #     (timedelta_to_num(x1), y1))
-            # sp2 = self.ax.transData.transform_point(
-            #     (timedelta_to_num(x2), y2))
-            # # sp1, sp2 = (timedelta_to_num(x1), y1), (timedelta_to_num(x2), y2)
-
-            # rise = (sp2[1] - sp1[1])
-            # run = (sp2[0] - sp1[0])
-
-            # # dx, dy = self.ax.transData.transform_point((run, rise))
-            # # print(rise)
-            # # print(run)
-
-            # slope_degrees = np.degrees(np.arctan2(rise, run))
-
-            # if (slope_degrees > 90):
-            #     slope_degrees -= 180
-            # elif (slope_degrees < -90):
-            #     slope_degrees += 180
-
-            # print(slope_degrees)
+            list_points = list(
+                zip(df_train['Heure'].values, df_train['y'].values))
 
             self.ax.annotate(text_label, xy=list_points[0], xytext=(0, 0),
                              textcoords='offset points',
@@ -147,7 +100,6 @@ class DrawGraph:
                              va='bottom',
                              rotation=0,
                              color=label_color)
-            # text.set_rotation(slope_degrees)
 
     def draw_stations(self):
         """

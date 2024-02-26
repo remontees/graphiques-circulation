@@ -60,7 +60,7 @@ class DrawGraph:
         """
         Dessine les sillons sur le graphique.
         """
-        iter_df = self.df_sillons.iteritems()
+        iter_df = self.df_sillons.items()
         _, pk_col = next(iter_df)
 
         for label, x_col in iter_df:

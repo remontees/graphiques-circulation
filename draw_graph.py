@@ -65,7 +65,6 @@ class DrawGraph:
 
         for label, x_col in iter_df:
             # Construction of a unit dataframe for each circulation
-            print(label, x_col)
             data_train = {
                 'Heure': x_col,
                 'y': pk_col
